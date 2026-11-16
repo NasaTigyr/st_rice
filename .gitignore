@@ -1,0 +1,5 @@
+*.o
+st
+*.orig
+*.rej
+st-*.tar.gz
