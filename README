@@ -1,4 +1,4 @@
-st - simple terminal
+My rice for the simple terminal - st
 --------------------
 st is a simple terminal emulator for X which sucks less.
 
@@ -27,6 +27,137 @@ the st terminfo entry with the following command:
     tic -sx st.info
 
 See the man page for additional details.
+
+Keybinds
+--------
+
+MODKEY - Alt 
+TERMMOD - Ctrl + Shift 
+
+### Clipboard
+
+| Keybind                | Action                                  |
+|------------------------|-----------------------------------------|
+| `Ctrl` + `Shift` + `C` | Copy selection to clipboard             |
+| `Ctrl` + `Shift` + `V` | Paste from clipboard                    |
+| `Ctrl` + `Shift` + `Y` | Paste primary selection                 |
+| `Shift` + `Insert`     | Paste primary selection                 |
+
+### Zoom
+
+| Keybind                    | Action                  |
+|----------------------------|-------------------------|
+| `Ctrl` + `Shift` + `+`     | Zoom in (+2)            |
+| `Ctrl` + `Shift` + `_`     | Zoom out (-2)           |
+| `Ctrl` + `Shift` + `Home`  | Reset zoom              |
+
+> `Ctrl+Shift+PageUp` / `Ctrl+Shift+PageDown` zoom bindings exist in the config but are commented out (disabled).
+
+### Scrolling
+
+| Keybind                | Action                  |
+|------------------------|-------------------------|
+| `Shift` + `Page Up`    | Scroll up               |
+| `Shift` + `Page Down`  | Scroll down             |
+
+### Printing / Misc
+
+| Keybind                    | Action                          |
+|----------------------------|---------------------------------|
+| `Break`                    | Send break                      |
+| `Ctrl` + `Print`           | Toggle printer                  |
+| `Shift` + `Print`          | Print screen                    |
+| `Print`                    | Print selection                 |
+| `Ctrl` + `Shift` + `NumLock` | Toggle application keypad (numlock) |
+
+## Mouse Shortcuts
+
+| Mouse                  | Action                                              |
+|------------------------|-----------------------------------------------------|
+| Scroll wheel up        | Scroll up 1 line                                    |
+| Scroll wheel down      | Scroll down 1 line                                  |
+| Middle click (release) | Paste primary selection                             |
+| `Shift` + wheel up     | Send `Page Up` (`\033[5;2~`) to the program         |
+| `Shift` + wheel down   | Send `Page Down` (`\033[6;2~`) to the program       |
+| Wheel up (alt screen)  | Send `Ctrl+Y` (`\031`) to the program               |
+| Wheel down (alt screen)| Send `Ctrl+E` (`\005`) to the program               |
+
+> When a program has mouse reporting enabled, hold `Shift` (`forcemousemod`) to force terminal selection and shortcuts.
+
+## Selection
+
+| Action                          | Result                      |
+|---------------------------------|-----------------------------|
+| Left click + drag               | Normal selection            |
+| `Alt` + left click + drag       | Rectangular selection       |
+| Double click (within 300 ms)    | Select word                 |
+| Triple click (within 600 ms)    | Select line                 |
+
+Words are delimited by a space only (`worddelimiters`).
+
+## Special Key Sequences
+
+Standard terminal key mappings are provided for compatibility with the Linux world.
+
+### Modifier Encoding
+
+For arrow keys and similar keys, the modifier is encoded in the escape sequence:
+
+| Modifier                  | Code |
+|---------------------------|------|
+| `Shift`                   | 2    |
+| `Alt`                     | 3    |
+| `Shift` + `Alt`           | 4    |
+| `Ctrl`                    | 5    |
+| `Shift` + `Ctrl`          | 6    |
+| `Ctrl` + `Alt`            | 7    |
+| `Shift` + `Ctrl` + `Alt`  | 8    |
+
+Example: `Ctrl` + `Up` sends `\033[1;5A`.
+
+### Navigation Keys
+
+| Key                       | Notes                                          |
+|---------------------------|------------------------------------------------|
+| Arrow keys                | Support all modifier combos above; application |
+|                           | cursor mode aware                              |
+| `Home` / `End`            | Mode-dependent sequences; `Shift+Home` clears  |
+|                           | screen in normal mode                          |
+| `Page Up` / `Page Down`   | `Ctrl` and `Shift` variants supported          |
+| `Insert` / `Delete`       | `Shift` and `Ctrl` variants supported          |
+| `Shift` + `Tab`           | Sends `\033[Z` (back-tab)                      |
+| `Alt` + `Enter`           | Sends `ESC` + `CR`                             |
+| `Enter`                   | Sends `CR`                                     |
+| `Backspace`               | Sends `DEL` (`\177`)                           |
+| `Alt` + `Backspace`       | Sends `ESC` + `DEL`                            |
+
+### Function Keys
+
+| Key           | Modifier support                                           |
+|---------------|------------------------------------------------------------|
+| `F1`-`F12`    | Plain, `Shift` (F13-F24), `Ctrl` (F25-F36),                |
+|               | `Super` (F37-F48), `Alt` (F49-F60)                         |
+| `F13`-`F35`   | Mapped directly to the equivalent Shift/Ctrl sequences     |
+
+`F1`-`F4` use `\033OP`..`\033OS`; `F5`-`F12` use `\033[15~`..`\033[24~`.
+
+### Keypad
+
+Numeric keypad keys (`KP_0`-`KP_9`, `+`, `-`, `*`, `/`, `.`, `Enter`) send 
+application-mode sequences (`\033Op`...) when keypad application mode is 
+enabled, and regular characters otherwise. Use `Ctrl+Shift+NumLock` to toggle.
+
+## Related Settings
+
+| Setting           | Value                                              |
+|-------------------|----------------------------------------------------|
+| Font              | JetBrainsMono Nerd Font, 16px                      |
+| Shell             | `/bin/sh`                                          |
+| Terminal name     | `st-256color`                                      |
+| Opacity           | 0.8 focused / 0.6 unfocused                        |
+| Tab spaces        | 8                                                  |
+| Cursor shape      | Block                                              |
+| Default size      | 80 x 24                                            |
 
 Credits
 -------
